@@ -144,6 +144,8 @@ function drawChartImperv(data) {
   xAxis2.select(".xLabel")
     .text("Impervious Percentage")
 
+  bar.remove();
+
   //bind the data once
   bar = svg.selectAll(".bar")
       .data(histogramData)
