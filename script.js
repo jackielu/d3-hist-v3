@@ -1,29 +1,9 @@
-var values, histogramData, dataCan_P, dataImperv_P;
-
+var histogramData;
 
 //CALL THE DATA
 d3.json("landcoversumm.geojson", function(data) {
-    // window.data = data;
-    // values = data;
     drawChartCan(data);
-    // dataCan_P = data.features.map(function (d) {
-    //     return d.properties.Can_P});
-    // window.dataCan_P = dataCan_P;
 })
-
-
-//SET UP THE COLOR FUNCTIONS THAT TAKE INPUT VALUE AND OUTPUT A COLOR
-
-//color scale for initial Can_P value
-var colorCan = d3.scale.quantize()
-                    .range(["#d9d9d9", "#f7fcf5", "#e5f5e0", "#c7e9c0", "#a1d99b", "#74c476", "#41ab5d", "#238b45", "#006d2c", "#00441b"])
-                    .domain([0, 100]);
-
-//color scale for Imperv_P value
-var colorImperv = d3.scale.quantize()
-          .range(["#05201F","#0A3130","#104342","#175555","#1F696A", "#277C7F","#309195","#39A6AC","#43BBC3","#4DD1DC"])
-          .domain([0, 100]);
-
 
 //CREATE VARIABLES
 var hist;
@@ -132,19 +112,7 @@ function drawChartCan(data){
       .attr("width", xScale(histogramData[0].dx)/2)
       .attr("height", function (d) { return (height - padding) - yScale(d.y); })
       //color the bars using the color function for the layer
-      .style("fill", function(d) {
-                        //Get data value
-                        var value = d.x;
-                        //window.test=value;
-                        if (value) {
-                                //If value exists…
-                                return colorCan(value);
-                        } else {
-                                //If value is undefined…
-                                return "#fff";
-                        }
-           })
-      .attr('bin', function (d) {return colorCan(d.x);})     
+      .style("fill", "#41ab5d")
 
     // handle updated elements
   bar.transition()
@@ -192,19 +160,7 @@ function drawChartImperv(data) {
       .attr("width", xScale(histogramData[0].dx)/2)
       .attr("height", function (d) { return (height - padding) - yScale(d.y); })
       //color the bars using the color function for the layer
-      .style("fill", function(d) {
-                        //Get data value
-                        var value = d.x;
-                        //window.test=value;
-                        if (value) {
-                                //If value exists…
-                                return colorImperv(value);
-                        } else {
-                                //If value is undefined…
-                                return "#fff";
-                        }
-           })
-      .attr('bin', function (d) {return colorImperv(d.x);})     
+      .style("fill", "#309195")
 
     // handle updated elements
   bar.transition()
